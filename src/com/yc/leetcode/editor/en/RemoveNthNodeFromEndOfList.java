@@ -42,34 +42,22 @@ package com.yc.leetcode.editor.en;
 
 public class RemoveNthNodeFromEndOfList {
     public static void main(String[] args) {
-        //ListNode head = new ListNode(1);
-        //ListNode node = head;
-        int n = 2;
-        for (int i = 2; i <= 5; i++) {
-            //node.next = new ListNode(i);
-            //node = node.next;
+        ListNode head = new ListNode(5);
+        ListNode result;
+        int n = 5;
+        for (int i = 4; i >= 1; i--) {
+            head = new ListNode(i, head);
         }
         Solution solution = new RemoveNthNodeFromEndOfList().new Solution();
-        //System.out.print(solution.removeNthFromEnd(head, n));
+        result = solution.removeNthFromEnd(head, n);
+        while (result != null) {
+            System.out.print(result.val + " ");
+            result = result.next;
+        }
     }
     //leetcode submit region begin(Prohibit modification and deletion)
     // Definition for singly-linked list.
-    public class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
 
     class Solution {
         public ListNode removeNthFromEnd(ListNode head, int n) {
