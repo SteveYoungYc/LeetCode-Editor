@@ -20,17 +20,35 @@
 
 
 package com.yc.leetcode.editor.cn;
-public class BaShuZiFanYiChengZiFuChuanLcof{
-    public static void main(String[] args) {
-         Solution solution = new BaShuZiFanYiChengZiFuChuanLcof().new Solution();
-    }
-    //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int translateNum(int num) {
 
-        return 0;
+public class BaShuZiFanYiChengZiFuChuanLcof {
+    public static void main(String[] args) {
+        Solution solution = new BaShuZiFanYiChengZiFuChuanLcof().new Solution();
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int translateNum(int num) {
+            String s = String.valueOf(num);
+            int length = s.length();
+            int[] dp = new int[length + 1];
+            dp[0] = 1;
+            dp[1] = 1;
+            for (int i = 2; i < length + 1; i++) {
+                if (isSkip(s.substring(i - 2, i))) {
+                    dp[i] = dp[i - 1] + dp[i - 2];
+                } else {
+                    dp[i] = dp[i - 1];
+                }
+            }
+            return dp[length];
+        }
+
+        private boolean isSkip(String s) {
+            int num = Integer.parseInt(s);
+            return num >= 10 && num < 26;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
