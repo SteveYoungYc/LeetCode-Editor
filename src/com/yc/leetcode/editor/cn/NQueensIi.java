@@ -43,44 +43,43 @@ public class NQueensIi {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         int res = 0;
-        int[][] diagonal;
+        int[][] board;
 
         public int totalNQueens(int n) {
-            diagonal = new int[n][n];
-            boolean[] used = new boolean[n];
-            backtrack(n, 0, used);
+            board = new int[n][n];
+            backtrack(n, 0);
             return res;
         }
 
-        void backtrack(int n, int track, boolean[] used) {
+        void backtrack(int n, int track) {
             if (track == n) {
                 res++;
                 return;
             }
             for (int i = 0; i < n; i++) {
-                if (used[i] || diagonal[track][i] != 0)
+                if (board[track][i] != 0)
                     continue;
                 track++;
                 int offset = 0;
                 for (int j = track; j < n; j++) {
                     offset++;
                     if (i - offset >= 0)
-                        diagonal[j][i - offset]++;
+                        board[j][i - offset]++;
                     if (i + offset < n)
-                        diagonal[j][i + offset]++;
+                        board[j][i + offset]++;
+                    board[j][i]++;
                 }
-                used[i] = true;
-                backtrack(n, track, used);
+                backtrack(n, track);
                 offset = 0;
                 for (int j = track; j < n; j++) {
                     offset++;
                     if (i - offset >= 0)
-                        diagonal[j][i - offset]--;
+                        board[j][i - offset]--;
                     if (i + offset < n)
-                        diagonal[j][i + offset]--;
+                        board[j][i + offset]--;
+                    board[j][i]--;
                 }
                 track--;
-                used[i] = false;
             }
         }
     }

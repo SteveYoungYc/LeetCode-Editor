@@ -49,50 +49,49 @@ public class NQueens {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         List<List<String>> res = new LinkedList<>();
-        int[][] diagonal;
+        int[][] board;
 
         public List<List<String>> solveNQueens(int n) {
-            diagonal = new int[n][n];
+            board = new int[n][n];
             LinkedList<String> track = new LinkedList<>();
             List<String> strings = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 strings.add(generateStr(i, n));
             }
-            boolean[] used = new boolean[n];
-            backtrack(strings, track, used);
+            backtrack(strings, track);
             return res;
         }
 
-        void backtrack(List<String> strings, LinkedList<String> track, boolean[] used) {
+        void backtrack(List<String> strings, LinkedList<String> track) {
             int n = strings.size();
             if (track.size() == n) {
                 res.add(new LinkedList(track));
                 return;
             }
             for (int i = 0; i < n; i++) {
-                if (used[i] || diagonal[track.size()][i] != 0)
+                if (board[track.size()][i] != 0)
                     continue;
                 track.add(strings.get(i));
                 int offset = 0;
                 for (int j = track.size(); j < n; j++) {
                     offset++;
                     if (i - offset >= 0)
-                        diagonal[j][i - offset]++;
+                        board[j][i - offset]++;
                     if (i + offset < n)
-                        diagonal[j][i + offset]++;
+                        board[j][i + offset]++;
+                    board[j][i]++;
                 }
-                used[i] = true;
-                backtrack(strings, track, used);
+                backtrack(strings, track);
                 offset = 0;
                 for (int j = track.size(); j < n; j++) {
                     offset++;
                     if (i - offset >= 0)
-                        diagonal[j][i - offset]--;
+                        board[j][i - offset]--;
                     if (i + offset < n)
-                        diagonal[j][i + offset]--;
+                        board[j][i + offset]--;
+                    board[j][i]--;
                 }
                 track.removeLast();
-                used[i] = false;
             }
         }
 
