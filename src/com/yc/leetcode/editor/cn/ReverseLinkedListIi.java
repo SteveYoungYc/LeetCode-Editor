@@ -37,7 +37,7 @@ class Solution {
     }
 
     public ListNode reverseList(ListNode head, int n) {
-        if (head == null || head.next == null || n == 1) {
+        if (n == 1) {
             return head;
         }
         ListNode last = reverseList(head.next, n - 1);
