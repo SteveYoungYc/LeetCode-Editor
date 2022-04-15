@@ -21,27 +21,21 @@ class ReverseNodesInKGroup {
         private ListNode node;
         public ListNode reverseKGroup(ListNode head, int k) {
             N = k;
-            int len = 1;
-            ListNode detector = head;
             ListNode dummy = new ListNode(0, head);
-            while (detector.next != null) {
-                detector = detector.next;
-                len++;
-            }
-            int i = 0;
             node = head;
             head = dummy;
-            while (i + k <= len) {
+            while (true) {
                 for (int j = 0; j < k; j++) {
-                    node = node.next;
+                    if (node != null)
+                        node = node.next;
+                    else
+                        return dummy.next;
                 }
                 head.next = reverseList(head.next, k);
                 for (int j = 0; j < k; j++) {
                     head = head.next;
                 }
-                i += k;
             }
-            return dummy.next;
         }
 
         public ListNode reverseList(ListNode head, int n) {
