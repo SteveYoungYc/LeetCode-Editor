@@ -21,14 +21,13 @@ class LinkedListCycle {
      */
     public class Solution {
         public boolean hasCycle(ListNode head) {
-            HashSet<Integer> set = new HashSet<>();
-            while (head != null) {
-                int hash = head.hashCode();
-                if (set.contains(hash))
+            ListNode slow = head;
+            ListNode fast = head;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                fast = fast.next.next;
+                if (slow == fast)
                     return true;
-                else
-                    set.add(hash);
-                head = head.next;
             }
             return false;
         }
