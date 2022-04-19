@@ -19,17 +19,17 @@ class RotateImage {
                 }
             }
         }
-
+        /*
+        * matrix[i][j]              matrix[j][offset - i]
+        * matrix[offset - j][i]     matrix[offset - i][offset - j]
+        */
         private void rotateFour(int[][] matrix, int i, int j) {
             int offset = n - 1;
-            int a = matrix[i][j];
-            int b = matrix[j][offset - i];
-            int c = matrix[offset - i][offset - j];
-            int d = matrix[offset - j][i];
-            matrix[j][offset - i] = a;
-            matrix[offset - i][offset - j] = b;
-            matrix[offset - j][i] = c;
-            matrix[i][j] = d;
+            int tmp = matrix[j][offset - i];
+            matrix[j][offset - i] = matrix[i][j];
+            matrix[i][j] = matrix[offset - j][i];
+            matrix[offset - j][i] = matrix[offset - i][offset - j];
+            matrix[offset - i][offset - j] = tmp;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
