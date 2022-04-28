@@ -9,18 +9,21 @@ class SortArrayByParity {
     class Solution {
         public int[] sortArrayByParity(int[] nums) {
             int length = nums.length;
-            int[] res = new int[length];
             int left = 0, right = length - 1;
-            for (int num : nums) {
-                if (num % 2 == 0) {
-                    res[left] = num;
+            while (left < right) {
+                while (left < length && nums[left] % 2 == 0) {
                     left++;
-                } else {
-                    res[right] = num;
+                }
+                while (right >=0 && nums[right] % 2 == 1) {
                     right--;
                 }
+                if (left < right) {
+                    int tmp = nums[left];
+                    nums[left] = nums[right];
+                    nums[right] = tmp;
+                }
             }
-            return res;
+            return nums;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
