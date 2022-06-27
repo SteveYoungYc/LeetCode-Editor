@@ -14,40 +14,26 @@ class FlattenBinaryTreeToLinkedList {
     //leetcode submit region begin(Prohibit modification and deletion)
 
     /**
-     * Definition for a binary tree node.
-     * public class TreeNode {
-     * int val;
-     * TreeNode left;
-     * TreeNode right;
-     * TreeNode() {}
-     * TreeNode(int val) { this.val = val; }
-     * TreeNode(int val, TreeNode left, TreeNode right) {
-     * this.val = val;
-     * this.left = left;
-     * this.right = right;
-     * }
-     * }
+     * 1. 将左子树插入到右子树的地方。
+     * 2. 将原来的右子树接到左子树的最右边节点。
+     * 3. 考虑新的右子树的根节点，一直重复上边的过程，直到新的右子树为 null。
+     *
+     * 很好理解，前序遍历先遍历根节点，然后遍历左子树，最后遍历右子树。所以要把左子树插入右子树之前。
      */
     class Solution {
-        TreeNode list;
-
         public void flatten(TreeNode root) {
-            list = new TreeNode(0);
-            TreeNode dummy = list;
-            preOrder(root);
-            if (dummy.right != null) {
-                root.left = dummy.right.left;
-                root.right = dummy.right.right;
+            while (root != null) {
+                if (root.left != null) {
+                    TreeNode node = root.left;
+                    while (node.right != null) {
+                        node = node.right;
+                    }
+                    node.right = root.right;
+                    root.right = root.left;
+                    root.left = null;
+                }
+                root = root.right;
             }
-        }
-
-        public void preOrder(TreeNode root) {
-            if (root == null)
-                return;
-            list.right = new TreeNode(root.val);
-            list = list.right;
-            preOrder(root.left);
-            preOrder(root.right);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
