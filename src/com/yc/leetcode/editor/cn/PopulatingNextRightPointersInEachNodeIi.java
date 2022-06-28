@@ -3,9 +3,9 @@ package com.yc.leetcode.editor.cn;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class PopulatingNextRightPointersInEachNode {
-    public static void main(String[] args){
-        Solution solution = new PopulatingNextRightPointersInEachNode().new Solution();
+class PopulatingNextRightPointersInEachNodeIi {
+    public static void main(String[] args) {
+        Solution solution = new PopulatingNextRightPointersInEachNodeIi().new Solution();
     }
     //leetcode submit region begin(Prohibit modification and deletion)
 /*
