@@ -28,7 +28,6 @@ class BestTimeToBuyAndSellStockIv {
                     dp[d][t][1] = Math.max(buy, rest);  // having stock
                 }
             }
-            System.out.println(Arrays.deepToString(dp));
             return dp[n - 1][k][0];
         }
     }
