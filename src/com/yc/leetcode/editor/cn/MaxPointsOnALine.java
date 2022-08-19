@@ -73,6 +73,7 @@ class MaxPointsOnALine {
         public int maxPoints(int[][] points) {
             if (points.length <= 2)
                 return points.length;
+            int res = 2;
             HashMap<Line, HashSet<Point>> lines = new HashMap<>();
             for (int i = 0; i < points.length; i++) {
                 for (int j = i + 1; j < points.length; j++) {
@@ -84,22 +85,19 @@ class MaxPointsOnALine {
                         slope = (double) (points[j][1] - points[i][1]) / (points[j][0] - points[i][0]);
                         offset = points[j][1] - slope * points[j][0];
                     }
-                    // System.out.println(offset);
                     Line line = new Line(slope, offset);
                     Point p1 = new Point(points[i][0], points[i][1]);
                     Point p2 = new Point(points[j][0], points[j][1]);
                     if (lines.containsKey(line)) {
-                        lines.get(line).add(p1);
-                        lines.get(line).add(p2);
+                        HashSet<Point> set = lines.get(line);
+                        set.add(p1);
+                        set.add(p2);
+                        if (set.size() > res)
+                            res = set.size();
                     } else {
                         lines.put(line, new HashSet<>());
                     }
                 }
-            }
-            int res = 2;
-            for (HashSet<Point> set : lines.values()) {
-                if (set.size() > res)
-                    res = set.size();
             }
             return res;
         }
