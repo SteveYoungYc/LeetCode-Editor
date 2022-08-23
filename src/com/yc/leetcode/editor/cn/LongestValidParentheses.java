@@ -12,31 +12,31 @@ class LongestValidParentheses {
     class Solution {
         public int longestValidParentheses(String s) {
             int res = 0;
-            for (int i = 0; i < s.length() - 1; i++) {
-                if (s.charAt(i) == ')')
-                    continue;
-                Stack<Integer> stack = new Stack<>();
-                int[] lens = new int[s.length() - i + 1];
-                for (int j = i; j < s.length(); j++) {
-                    if (s.charAt(j) == '(') {
-                        stack.push(j);
-                        lens[j - i + 1] = lens[j - i];
-                    }
-                    if (s.charAt(j) == ')') {
-                        if (stack.isEmpty()) {
-                            lens[s.length() - 1 - i + 1] = lens[j - i];
-                            break;
-                        }
+            Stack<Integer> stack = new Stack<>();
+            int[] lonely = new int[s.length()];
+            for (int i = 0; i < s.length(); i++) {  // 用栈模拟，将无法配对的括号标记为1，问题转换为求最长的0字串
+                if (s.charAt(i) == '(') {
+                    stack.push(i);
+                }
+                if (s.charAt(i) == ')') {
+                    if (!stack.isEmpty()) {
                         stack.pop();
-                        lens[j - i + 1] = lens[j - i] + 2;
-                        // System.out.println("hhhh");
+                    } else {
+                        lonely[i] = 1;
                     }
                 }
-                int firstLeft = s.length() - 1;
-                while (!stack.isEmpty()) {
-                    firstLeft = stack.pop();
+            }
+            while (!stack.isEmpty()) {
+                lonely[stack.pop()] = 1;
+            }
+            int len = 0;
+            for (int j : lonely) {
+                if (j == 0) {
+                    len++;
+                    res = Math.max(res, len);
+                } else {
+                    len = 0;
                 }
-                res = Math.max(res, lens[firstLeft - i + 1]);
             }
             return res;
         }
