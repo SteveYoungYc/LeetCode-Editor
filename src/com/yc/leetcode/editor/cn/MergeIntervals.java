@@ -18,13 +18,13 @@ class MergeIntervals {
 
             public Boundary(int val, int type) {
                 this.val = val;
-                this.type = type;
+                this.type = type;   // 0 for left, 1 for right
             }
 
             @Override
             public int compareTo(Boundary o) {
                 if (this.val == o.val) {
-                    return Integer.compare(this.type, o.type);
+                    return Integer.compare(this.type, o.type); // Left is smaller when vals are the same
                 }
                 return Integer.compare(this.val, o.val);
             }
@@ -40,7 +40,7 @@ class MergeIntervals {
                 queue.offer(new Boundary(interval[1], 1));
             }
             assert queue.peek() != null;
-            int minVal = queue.peek().val;
+            int minVal = queue.peek().val;  // leftest bracket's val
             while (!queue.isEmpty()) {
                 Boundary boundary = queue.poll();
                 if (minVal == -1)
@@ -52,7 +52,7 @@ class MergeIntervals {
                     stack.pop();
                     if (stack.isEmpty()) {
                         lists.add(new int[]{minVal, boundary.val});
-                        minVal = -1;
+                        minVal = -1;    // refresh minVal
                     }
                 }
             }
